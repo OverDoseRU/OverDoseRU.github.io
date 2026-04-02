@@ -41,8 +41,9 @@
                         <div class="project-image-wrapper">
                             <img src="images/PasswordManager.png" alt="Password Manager" class="project-image">
                         </div>
-                        <div class="project-readme" id="readme-pm">
-                            <p>Загрузка описания...</p>
+                        <div class="project-readme-wrapper">
+                            <div class="project-readme" id="readme-pm"></div>
+                            <button class="readme-toggle" data-target="readme-pm">Читать далее</button>
                         </div>
                         <div class="project-links">
                             <a href="https://github.com/OverDoseRU/password-manager" class="project-link">GitHub</a>
@@ -54,8 +55,9 @@
                         <div class="project-image-wrapper">
                             <img src="images/YT-DOWN.png" alt="YT-DWN" class="project-image">
                         </div>
-                        <div class="project-readme" id="readme-yt">
-                            <p>Загрузка описания...</p>
+                        <div class="project-readme-wrapper">
+                            <div class="project-readme" id="readme-yt"></div>
+                            <button class="readme-toggle" data-target="readme-yt">Читать далее</button>
                         </div>
                         <div class="project-links">
                             <a href="https://github.com/OverDoseRU/yt-dwn" class="project-link">GitHub</a>
@@ -109,6 +111,8 @@
             });
         });
 
+        let fullReadmeCache = {};
+
         async function loadProjectReadme(repo, elementId) {
             const container = document.getElementById(elementId);
             try {
@@ -116,29 +120,66 @@
                 if (!response.ok) throw new Error('README не найден');
                 const markdown = await response.text();
                 
-                let html = markdown
-                    .split('\n')
-                    .filter(line => line.trim())
-                    .slice(0, 10)
-                    .join('\n');
+                fullReadmeCache[elementId] = markdown;
                 
-                html = html
-                    .replace(/^# (.*$)/gim, '<strong>$1</strong>')
-                    .replace(/^## (.*$)/gim, '<strong>$1</strong>')
-                    .replace(/^### (.*$)/gim, '<strong>$1</strong>')
+                let html = markdown
+                    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                    .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+                    .replace(/\*(.*?)\*/gim, '<em>$1</em>')
                     .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank">$1</a>')
                     .replace(/`(.*?)`/gim, '<code>$1</code>')
                     .replace(/^\d+\.\s(.*$)/gim, '• $1')
-                    .replace(/^\- (.*$)/gim, '• $1');
+                    .replace(/^\- (.*$)/gim, '• $1')
+                    .replace(/\n/gim, '<br>');
                 
                 container.innerHTML = `<div class="readme-text">${html}</div>`;
-                if (container.innerHTML.length < 50) {
-                    container.innerHTML = '<p>Краткое описание проекта можно посмотреть на GitHub.</p>';
+                
+                const button = document.querySelector(`.readme-toggle[data-target="${elementId}"]`);
+                if (button) {
+                    button.style.display = 'inline-block';
                 }
             } catch (error) {
                 container.innerHTML = '<p>Описание проекта доступно в репозитории на GitHub.</p>';
             }
         }
+
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('readme-toggle')) {
+                const targetId = e.target.getAttribute('data-target');
+                const readmeDiv = document.getElementById(targetId);
+                const button = e.target;
+                
+                if (readmeDiv.classList.contains('expanded')) {
+                    readmeDiv.classList.remove('expanded');
+                    button.textContent = 'Читать далее';
+                    
+                    const originalHtml = readmeDiv.querySelector('.readme-text')?.innerHTML || '';
+                    if (originalHtml) {
+                        readmeDiv.innerHTML = `<div class="readme-text">${originalHtml}</div>`;
+                    }
+                } else {
+                    readmeDiv.classList.add('expanded');
+                    button.textContent = 'Свернуть';
+                    
+                    if (fullReadmeCache[targetId]) {
+                        const fullHtml = fullReadmeCache[targetId]
+                            .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                            .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                            .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                            .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+                            .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+                            .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank">$1</a>')
+                            .replace(/`(.*?)`/gim, '<code>$1</code>')
+                            .replace(/^\d+\.\s(.*$)/gim, '• $1')
+                            .replace(/^\- (.*$)/gim, '• $1')
+                            .replace(/\n/gim, '<br>');
+                        readmeDiv.innerHTML = `<div class="readme-text">${fullHtml}</div>`;
+                    }
+                }
+            }
+        });
 
         loadProjectReadme('password-manager', 'readme-pm');
         loadProjectReadme('yt-dwn', 'readme-yt');
