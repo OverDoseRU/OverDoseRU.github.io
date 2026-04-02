@@ -170,6 +170,10 @@ h1 {
     border-radius: 12px;
 }
 
+.project-readme-wrapper {
+    position: relative;
+}
+
 .project-readme {
     font-size: 14px;
     color: var(--gray-light);
@@ -178,8 +182,38 @@ h1 {
     background: var(--bg-dark);
     border-radius: 12px;
     border-left: 3px solid var(--red);
-    max-height: 180px;
-    overflow-y: auto;
+    max-height: 100px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.project-readme.expanded {
+    max-height: 2000px;
+}
+
+.readme-toggle {
+    background: transparent;
+    border: 1px solid var(--red);
+    color: var(--red);
+    padding: 4px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s;
+    margin-bottom: 15px;
+    display: none;
+}
+
+.readme-toggle:hover {
+    background: var(--red);
+    color: var(--text-light);
+}
+
+.readme-text h1, 
+.readme-text h2, 
+.readme-text h3 {
+    font-size: 16px;
+    margin: 8px 0 4px;
 }
 
 .readme-text p {
