@@ -7,5 +7,5 @@
 - [GitHub](https://github.com/OverDoseRU/password-manager)
 
 ### 🎬 YT-DWN
-YouTube Downloader на Ruby + Python. Поддерживает выбор качества best/720p/480p, выводит информацию о видео.
+YouTube Downloader. Поддерживает выбор качества best/720p/480p, выводит информацию о видео.
 - [GitHub](https://github.com/OverDoseRU/yt-dwn)
