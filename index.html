@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OverInfo | Портфолио</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <section class="hero">
+            <div class="hero__container">
+                <h1>OverDoseRU</h1>
+                <p class="subtitle">Ruby & Python Trainee</p>
+                <div class="socials">
+                    <a href="https://github.com/OverDoseRU" class="social-link" target="_blank">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.21.68-.48 0-.24-.01-.88-.01-1.73-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1.01.07 1.54 1.04 1.54 1.04.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02.8-.22 1.65-.33 2.5-.33.85 0 1.7.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48C19.13 20.17 22 16.42 22 12c0-5.52-4.48-10-10-10z"/>
+                        </svg>
+                        GitHub
+                    </a>
+                    <a href="https://t.me/overputs" class="social-link" target="_blank">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.66-.35-1.02.22-1.61.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.08-.2-.09-.06-.22-.04-.32-.01-.14.04-2.36 1.5-3.32 2.1-.31.2-.59.3-.84.3-.28 0-.55-.08-.8-.16-.39-.12-.74-.21-1.07-.21-.37 0-.76.1-1.12.3-.38.21-.66.34-.66.34s-.36-.19.04-.54c.66-.57 1.46-1.05 2.37-1.54 1.27-.68 5.53-2.34 6.19-2.69.87-.46 1.55-.42 1.46.3z"/>
+                        </svg>
+                        Telegram
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="projects" class="projects">
+            <div class="projects__container">
+                <h2>Мои проекты</h2>
+                <div class="projects__grid">
+                    <div class="project-card">
+                        <h3>Password Manager</h3>
+                        <div class="project-image-wrapper">
+                            <img src="images/PasswordManager.png" alt="Password Manager" class="project-image">
+                        </div>
+                        <div class="project-readme" id="readme-pm">
+                            <p>Загрузка описания...</p>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/OverDoseRU/password-manager" class="project-link">GitHub</a>
+                            <button class="copy-deps" data-deps="gem install colorize&#10;pip install cryptography">Зависимости</button>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <h3>YT-DWN</h3>
+                        <div class="project-image-wrapper">
+                            <img src="images/YT-DOWN.png" alt="YT-DWN" class="project-image">
+                        </div>
+                        <div class="project-readme" id="readme-yt">
+                            <p>Загрузка описания...</p>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/OverDoseRU/yt-dwn" class="project-link">GitHub</a>
+                            <button class="copy-deps" data-deps="gem install colorize&#10;pip install yt-dlp">Зависимости</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 OverDoseRU</p>
+        <p class="license">Licensed under <a href="https://choosealicense.com/licenses/mit/" target="_blank" class="license-link">MIT</a></p>
+    </footer>
+
+    <script>
+        const body = document.body;
+        
+        const themeToggle = document.createElement('button');
+        themeToggle.id = 'themeToggle';
+        themeToggle.className = 'theme-btn';
+        themeToggle.textContent = 'Change Theme';
+        document.body.insertBefore(themeToggle, document.body.firstChild);
+        
+        themeToggle.style.position = 'fixed';
+        themeToggle.style.top = '20px';
+        themeToggle.style.right = '20px';
+        themeToggle.style.zIndex = '1000';
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                themeToggle.textContent = 'Change Theme';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = 'Change Theme';
+            }
+        });
+
+        document.querySelectorAll('.copy-deps').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const deps = btn.getAttribute('data-deps');
+                await navigator.clipboard.writeText(deps);
+                const originalText = btn.textContent;
+                btn.textContent = 'Скопировано';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        });
+
+        async function loadProjectReadme(repo, elementId) {
+            const container = document.getElementById(elementId);
+            try {
+                const response = await fetch(`https://raw.githubusercontent.com/OverDoseRU/${repo}/main/README.md`);
+                if (!response.ok) throw new Error('README не найден');
+                const markdown = await response.text();
+                
+                let html = markdown
+                    .split('\n')
+                    .filter(line => line.trim())
+                    .slice(0, 10)
+                    .join('\n');
+                
+                html = html
+                    .replace(/^# (.*$)/gim, '<strong>$1</strong>')
+                    .replace(/^## (.*$)/gim, '<strong>$1</strong>')
+                    .replace(/^### (.*$)/gim, '<strong>$1</strong>')
+                    .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank">$1</a>')
+                    .replace(/`(.*?)`/gim, '<code>$1</code>')
+                    .replace(/^\d+\.\s(.*$)/gim, '• $1')
+                    .replace(/^\- (.*$)/gim, '• $1');
+                
+                container.innerHTML = `<div class="readme-text">${html}</div>`;
+                if (container.innerHTML.length < 50) {
+                    container.innerHTML = '<p>Краткое описание проекта можно посмотреть на GitHub.</p>';
+                }
+            } catch (error) {
+                container.innerHTML = '<p>Описание проекта доступно в репозитории на GitHub.</p>';
+            }
+        }
+
+        loadProjectReadme('password-manager', 'readme-pm');
+        loadProjectReadme('yt-dwn', 'readme-yt');
+    </script>
+</body>
+</html>
